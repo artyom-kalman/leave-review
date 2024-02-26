@@ -2,7 +2,7 @@
 
 namespace RatePage\Controllers;
 
-include "Data/Controller.php";
+include "Controller.php";
 use RatePage\Data\Controller;
 include "Models/Review.php";
 use RatePage\Models\Review;
