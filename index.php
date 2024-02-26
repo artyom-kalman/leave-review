@@ -14,7 +14,7 @@ else {
 
 $uri = $_SERVER['REQUEST_URI'];
 
-require 'Data/routes.php';
+require 'src/routes.php';
 $router->dispatch($uri);
 
 ?>
