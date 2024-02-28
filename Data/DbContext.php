@@ -25,7 +25,7 @@ class DbContext {
 
     // TODO: Сделать параметризированный запрос
     public function AddReview($userId, $rating, $comment = null): bool {
-        $query = "INSERT INTO reviews(user_id, rating, comment) VALUES($userId, $rating, $comment);";
+        $query = "INSERT INTO reviews(user_id, rating, comment) VALUES('$userId', $rating, '$comment');";
 
         $result = pg_query($this->connection, $query);
     
