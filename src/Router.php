@@ -4,6 +4,11 @@ namespace RatePage\Data;
 
 class Router {
     protected $routes = [];
+    protected $dbContext;
+
+    public function __construct($dbContext) {
+        $this->dbContext = $dbContext;  
+    }
 
     public function addRoute($route, $controller, $action) {
         $this->routes[$route] = ['controller' => $controller, 'action' => $action];
@@ -20,7 +25,7 @@ class Router {
         $controller = $route['controller'];
         $action = $route['action'];
 
-        $controller = new $controller();
+        $controller = new $controller($this->dbContext);
 
         if (count($params) > 0) {
             $controller->$action($params); 

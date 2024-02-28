@@ -1,6 +1,5 @@
 <?php
 
-
 include "Router.php";
 use RatePage\Data\Router;
 
@@ -10,7 +9,7 @@ use RatePage\Controllers\UserController;
 include "Controllers/HomeController.php";
 use RatePage\Controllers\HomeController;
 
-$router = new Router();
+$router = new Router($dbContext);
 
 $router->addRoute('/', HomeController::class, 'index');
 $router->addRoute('/error', HomeController::class, 'error');
