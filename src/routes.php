@@ -14,5 +14,6 @@ $router = new Router($dbContext);
 $router->addRoute('/', HomeController::class, 'index');
 $router->addRoute('/error', HomeController::class, 'error');
 $router->addRoute('/newReview', HomeController::class, 'newReview');
+$router->addRoute('/success', HomeController::class, 'success');
 
 ?>

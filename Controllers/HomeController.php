@@ -16,13 +16,22 @@ class HomeController extends Controller {
         $this->render('Home/error', "Что-то пошло не так");
     }
 
+    public function success() {
+        $this->render('Home/success', "Спасибо за ваш отзыв");
+    }
+
     public function newReview($params = []) {
+        
         if (!array_key_exists("userid", $params)) {
             header('Location: error');
             exit;
         }
-
+        
         $userId = $params['userid'];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->postNewReview($userId, $_POST["rating"], $_POST["comment"]);
+        }
 
         if (!$this->dbContext->UserExist($userId)) {
             header('Location: error');
@@ -30,6 +39,18 @@ class HomeController extends Controller {
         }
 
         $this->render('Home/newReview', "Оставьте отзыв");
+    }
+
+    public function postNewReview($userId, $rating, $comment): void {
+        $result = $this->dbContext->AddReview($userId, $rating, $comment);
+
+        if (!$result) {
+            header('Location: error');
+            exit;
+        }
+
+        header('Location: success');
+        exit;
     }
 }
     
