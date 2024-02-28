@@ -23,8 +23,7 @@ class HomeController extends Controller {
     public function newReview($params = []) {
         
         if (!array_key_exists("userid", $params)) {
-            header('Location: error');
-            exit;
+            $this->redirect('error');
         }
         
         $userId = $params['userid'];
@@ -34,8 +33,7 @@ class HomeController extends Controller {
         }
 
         if (!$this->dbContext->UserExist($userId)) {
-            header('Location: error');
-            exit;
+            $this->redirect('error');
         }
 
         $this->render('Home/newReview', "Оставьте отзыв");
@@ -45,12 +43,10 @@ class HomeController extends Controller {
         $result = $this->dbContext->AddReview($userId, $rating, $comment);
 
         if (!$result) {
-            header('Location: error');
-            exit;
+            $this->redirect('error');
         }
 
-        header('Location: success');
-        exit;
+        $this->redirect('success');
     }
 }
     
