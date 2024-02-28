@@ -12,9 +12,12 @@ else {
     // echo("Connection is succesfuly established");
 }
 
-$uri = $_SERVER['REQUEST_URI'];
+$uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+$params = $_GET;
+
+// echo($_GET["username"]);
 
 require 'src/routes.php';
-$router->dispatch($uri);
+$router->dispatch($uri, $params);
 
 ?>
