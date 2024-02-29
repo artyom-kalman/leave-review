@@ -10,15 +10,16 @@ use RatePage\Models\Review;
 include 'src/validation.php';
 
 class HomeController extends Controller {
-    public function index() {
-        $this->render('Home/index', "Home");
+    public function index(): void {
+        // $this->render('Home/index', "Home");
+        $this->redirect('error');
     }
 
-    public function error() {
+    public function error(): void {
         $this->render('Home/error', "Что-то пошло не так");
     }
 
-    public function success() {
+    public function success(): void {
         $this->render('Home/success', "Спасибо за ваш отзыв");
     }
 

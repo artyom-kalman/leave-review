@@ -9,12 +9,12 @@ class Controller {
         $this->dbContext = $dbContext;
     }
 
-    protected function redirect($location) {
+    protected function redirect($location): void {
         header('Location:' .$location);
         exit;
     }
 
-    protected function render($view, $title = "RatePage", $data = []) {
+    protected function render($view, $title = "RatePage", $data = []): void {
         extract($data);
 
         $content = "Views/$view.php";

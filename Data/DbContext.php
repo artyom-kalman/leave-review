@@ -23,7 +23,7 @@ class DbContext {
         return true;
     }
 
-    public function UserHasReview($userId) {
+    public function UserHasReview($userId): bool {
         $result = pg_select(
             $this->connection, 
             "reviews", 
@@ -42,8 +42,7 @@ class DbContext {
             $this->connection, 
             'insert_review_query', 
             "INSERT INTO reviews(user_id, rating, comment) VALUES($1, $2, $3);"
-        )
-        ;
+        );
         if (!$result) return false;
 
         $result = pg_execute(

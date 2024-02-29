@@ -10,11 +10,11 @@ class Router {
         $this->dbContext = $dbContext;  
     }
 
-    public function addRoute($route, $controller, $action) {
+    public function addRoute($route, $controller, $action): void {
         $this->routes[$route] = ['controller' => $controller, 'action' => $action];
     }
 
-    public function dispatch($uri) {
+    public function dispatch($uri): void {
         if (!array_key_exists($uri, $this->routes)) {
             throw new \Exception("No route found for URI: $uri");
             return;

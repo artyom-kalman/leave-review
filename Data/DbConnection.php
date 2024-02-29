@@ -1,14 +1,12 @@
 <?php
 
-function connectToDb($connectionString) {
+function connectToDb($connectionString): PgSql\Connection|false {
     $dbConnection = pg_connect($connectionString);
 
     if (!$dbConnection) {
-        echo("Failde to connect to database");
-        return;
+        return false;
     }
 
-    // echo("Connection is succesfuly established");
     return $dbConnection;
 }
 
