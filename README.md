@@ -24,3 +24,9 @@
 - низкая связанность классов;
 - валидация данных;
 - по возможности покрыть код тестами.
+
+## Результат
+
+![Img](/img/review_screen.png "Review screen")
+![Img](/img/success_screen.png "Success screen")
+![Img](/img/error_screen.png "Error screen")
