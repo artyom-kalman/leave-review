@@ -21,12 +21,15 @@ class HomeController extends Controller {
     }
 
     public function newReview($params = []) {
-        
         if (!array_key_exists("userid", $params)) {
             $this->redirect('error');
         }
         
         $userId = $params['userid'];
+
+        if ($this->dbContext->UserHasReview($userId)) {
+            $this->redirect('success');
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->postNewReview($userId, $_POST["rating"], $_POST["comment"]);
