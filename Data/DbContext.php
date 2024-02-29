@@ -23,6 +23,20 @@ class DbContext {
         return true;
     }
 
+    public function UserHasReview($userId) {
+        $result = pg_select(
+            $this->connection, 
+            "reviews", 
+            array("user_id" => $userId)
+        );
+
+        if (!$result) {
+            return false;
+        }
+
+        return true;
+    }
+
     // TODO: Сделать параметризированный запрос
     public function AddReview($userId, $rating, $comment = null): bool {
         $query = "INSERT INTO reviews(user_id, rating, comment) VALUES('$userId', $rating, '$comment');";
