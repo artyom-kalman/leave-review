@@ -14,7 +14,7 @@ class Router {
         $this->routes[$route] = ['controller' => $controller, 'action' => $action];
     }
 
-    public function dispatch($uri, $params = []) {
+    public function dispatch($uri) {
         if (!array_key_exists($uri, $this->routes)) {
             throw new \Exception("No route found for URI: $uri");
             return;
@@ -26,12 +26,6 @@ class Router {
         $action = $route['action'];
 
         $controller = new $controller($this->dbContext);
-
-        if (count($params) > 0) {
-            $controller->$action($params); 
-            return;           
-        }
-
         $controller->$action();
     }
 }

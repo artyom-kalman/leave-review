@@ -9,7 +9,7 @@ class DbContext {
         $this->connection = $connection;
     }
 
-    public function UserExist($userId): bool {
+    public function UserExists($userId): bool {
         $result = pg_select(
             $this->connection, 
             "users", 
@@ -37,15 +37,22 @@ class DbContext {
         return true;
     }
 
-    // TODO: Сделать параметризированный запрос
     public function AddReview($userId, $rating, $comment = null): bool {
-        $query = "INSERT INTO reviews(user_id, rating, comment) VALUES('$userId', $rating, '$comment');";
+        $result = pg_prepare(
+            $this->connection, 
+            'insert_review_query', 
+            "INSERT INTO reviews(user_id, rating, comment) VALUES($1, $2, $3);"
+        )
+        ;
+        if (!$result) return false;
 
-        $result = pg_query($this->connection, $query);
+        $result = pg_execute(
+            $this->connection, 
+            'insert_review_query', 
+            array($userId, $rating, $comment)
+        );
     
-        if (!$result) {
-            return false;
-        }
+        if (!$result) return false;
 
         return true;
     }

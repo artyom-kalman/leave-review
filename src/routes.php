@@ -3,9 +3,6 @@
 include "Router.php";
 use RatePage\Data\Router;
 
-include "Controllers/UserController.php";
-use RatePage\Controllers\UserController;
-
 include "Controllers/HomeController.php";
 use RatePage\Controllers\HomeController;
 
