@@ -1,6 +1,6 @@
 <?php
 
-namespace RatePage\Data;
+namespace RatePage\Controllers;
 
 class Controller {
     protected $dbContext;

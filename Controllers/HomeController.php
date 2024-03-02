@@ -2,16 +2,19 @@
 
 namespace RatePage\Controllers;
 
-include "Controller.php";
-use RatePage\Data\Controller;
-include "Models/Review.php";
+require "Controller.php";
+
+require "Models/Review.php";
+require "Models/User.php";
+
+require 'src/validation.php';
+
+use RatePage\Models\User;
 use RatePage\Models\Review;
 
-include 'src/validation.php';
 
 class HomeController extends Controller {
     public function index(): void {
-        // $this->render('Home/index', "Home");
         $this->redirect('error');
     }
 
@@ -30,11 +33,14 @@ class HomeController extends Controller {
         
         $userId = $_GET['userid'];
 
-        if (!$this->dbContext->UserExists($userId)) {
+        $user = new User();
+        $user->userId = $userId;
+
+        if (!$this->dbContext->UserExists($user)) {
             $this->redirect('error');
         }
 
-        if ($this->dbContext->UserHasReview($userId)) {
+        if ($this->dbContext->UserHasReview($user)) {
             $this->redirect('success');
         }
 
@@ -52,7 +58,12 @@ class HomeController extends Controller {
     public function postNewReview($userId, $rating, $comment): void {
         $comment = validateTextInput($comment);
 
-        $result = $this->dbContext->AddReview($userId, $rating, $comment);
+        $newReview = new Review();
+        $newReview->userId = $userId;
+        $newReview->rating = $rating;
+        $newReview->comment = $comment;
+
+        $result = $this->dbContext->AddReview($newReview);
 
         if (!$result) {
             $this->redirect('error');

@@ -2,18 +2,21 @@
 
 namespace RatePage\Data;
 
+use RatePage\Models\Review;
+use RatePage\Models\User;
+
 class DbContext {
-    var $connection;
+    private $connection;
 
     public function __construct($connection) {
         $this->connection = $connection;
     }
 
-    public function UserExists($userId): bool {
+    public function UserExists(User $user): bool {
         $result = pg_select(
             $this->connection, 
             "users", 
-            array("user_id" => $userId)
+            array("user_id" => $user->userId)
         );
 
         if (!$result) {
@@ -23,11 +26,11 @@ class DbContext {
         return true;
     }
 
-    public function UserHasReview($userId): bool {
+    public function UserHasReview(User $user): bool {
         $result = pg_select(
             $this->connection, 
             "reviews", 
-            array("user_id" => $userId)
+            array("user_id" => $user->userId)
         );
 
         if (!$result) {
@@ -37,7 +40,7 @@ class DbContext {
         return true;
     }
 
-    public function AddReview($userId, $rating, $comment = null): bool {
+    public function AddReview(Review $review): bool {
         $result = pg_prepare(
             $this->connection, 
             'insert_review_query', 
@@ -48,7 +51,7 @@ class DbContext {
         $result = pg_execute(
             $this->connection, 
             'insert_review_query', 
-            array($userId, $rating, $comment)
+            array($review->userId, $review->rating, $review->comment)
         );
     
         if (!$result) return false;
