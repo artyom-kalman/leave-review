@@ -10,6 +10,20 @@ class DbContext {
 
     public function __construct($connection) {
         $this->connection = $connection;
+        $this->PrepareQueries();
+    }
+
+    private function PrepareQueries(): void {
+        pg_prepare(
+            $this->connection, 
+            'insert_review_query', 
+            "INSERT INTO reviews(user_id, rating, comment) VALUES($1, $2, $3);"
+        );
+        pg_prepare(
+            $this->connection, 
+            'delete_reviews', 
+            "DELETE FROM reviews;"
+        );
     }
 
     public function UserExists(User $user): bool {
@@ -41,13 +55,6 @@ class DbContext {
     }
 
     public function AddReview(Review $review): bool {
-        $result = pg_prepare(
-            $this->connection, 
-            'insert_review_query', 
-            "INSERT INTO reviews(user_id, rating, comment) VALUES($1, $2, $3);"
-        );
-        if (!$result) return false;
-
         $result = pg_execute(
             $this->connection, 
             'insert_review_query', 
@@ -57,6 +64,14 @@ class DbContext {
         if (!$result) return false;
 
         return true;
+    }
+
+    public function DeleteAllReviews(): void {
+        $result = pg_execute(
+            $this->connection, 
+            'delete_reviews', 
+            array()
+        );
     }
 }
 
