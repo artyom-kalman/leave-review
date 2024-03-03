@@ -1,6 +1,6 @@
 <?php
 
-namespace RatePage\Data;
+namespace RatePage\Router;
 
 class Router {
     protected $routes = [];

@@ -1,7 +1,7 @@
 <?php
 
 include "Router.php";
-use RatePage\Data\Router;
+use RatePage\Router\Router;
 
 include "Controllers/HomeController.php";
 use RatePage\Controllers\HomeController;
