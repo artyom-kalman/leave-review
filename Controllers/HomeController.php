@@ -34,7 +34,7 @@ class HomeController extends Controller {
         $userId = $_GET['userid'];
 
         $user = new User();
-        $user->userId = $userId;
+        $user->id = $userId;
 
         if (!$this->dbContext->UserExists($user)) {
             $this->redirect('error');

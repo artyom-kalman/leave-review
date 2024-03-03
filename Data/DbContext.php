@@ -16,7 +16,7 @@ class DbContext {
         $result = pg_select(
             $this->connection, 
             "users", 
-            array("user_id" => $user->userId)
+            array("user_id" => $user->id)
         );
 
         if (!$result) {
@@ -30,7 +30,7 @@ class DbContext {
         $result = pg_select(
             $this->connection, 
             "reviews", 
-            array("user_id" => $user->userId)
+            array("user_id" => $user->id)
         );
 
         if (!$result) {
