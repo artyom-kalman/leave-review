@@ -14,9 +14,7 @@ class Controller {
         exit;
     }
 
-    protected function render($view, $title = "RatePage", $data = []): void {
-        extract($data);
-
+    protected function render($view, $title = "RatePage"): void {
         $content = "Views/$view.php";
 
         include "Views/master.php";
